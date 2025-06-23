@@ -13,6 +13,12 @@ public class Email implements NotificationSystem{
         this.sender = sender;
     }
 
+    public Email(String recipient, String subject, String message) {
+        this.recipient = recipient;
+        this.subject = subject;
+        this.message = message;
+    }
+
     StringBuilder sb = new StringBuilder();
 
     @Override
@@ -39,7 +45,17 @@ public class Email implements NotificationSystem{
 
     @Override
     public void send() {
+        validate();
+        System.out.println("Enviando email...");
+        try{
+                Thread.sleep(2000);
+        }catch (InterruptedException e){
+            System.out.println("Erro durante a conexão");
+        }
+        System.out.println("Email enviado1");
 
+        String mailToSend = format();
+        System.out.println(mailToSend);
     }
 
     public String getRecipient() {
