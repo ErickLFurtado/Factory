@@ -1,14 +1,23 @@
 package com.ex2;
 
 public class Email implements NotificationSystem{
-    /// Endereço de email
-    private String mail;
-    /// Corpo do email
+    private String recipient;
+    private String subject;
     private String message;
+    private String sender;
+
+    public Email(String recipient, String subject, String message, String sender) {
+        this.recipient = recipient;
+        this.subject = subject;
+        this.message = message;
+        this.sender = sender;
+    }
+
+    StringBuilder sb = new StringBuilder();
 
     @Override
     public boolean validate() {
-        if (!validateMail(getMail()) || !validateMessage(getMessage())){
+        if (!validateMail(getRecipient()) || !validateMessage(getMessage())){
             return false;
         }
         return true;
@@ -16,7 +25,16 @@ public class Email implements NotificationSystem{
 
     @Override
     public String format() {
-        return "";
+        sb.append("===EMAIL===\n");
+        sb.append("De:: ").append(sender).append("\n");
+        sb.append("Para: ").append(recipient).append("\n");
+        sb.append("Assunto: ").append(subject).append("\n");
+        sb.append(message).append("\n");
+        sb.append("-----------------------------------------\n");
+        sb.append("Enviado do sistema automatico de notificações");
+        sb.append("==============================================");
+
+        return sb.toString();
     }
 
     @Override
@@ -24,12 +42,12 @@ public class Email implements NotificationSystem{
 
     }
 
-    public String getMail() {
-        return mail;
+    public String getRecipient() {
+        return recipient;
     }
 
-    public void setMail(String mail) {
-        this.mail = mail;
+    public void setMail(String recipient) {
+        this.recipient = recipient;
     }
 
     public String getMessage() {
